@@ -9,7 +9,6 @@ import backgroundImage from "./assets/images/pattern-bg-desktop.png"
  function App() {
   const [ipAddress, setIpAddress] = useState("");
   const [ipData, setIpData] = useState(null)
-  const [error, setError] = useState("")
 
   const ipAddressV4 = /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/;
   const ipAddressV6 = /^(?:[0-9a-fA-F]1,4:)7[0-9a-fA-F]1,4/;
@@ -40,7 +39,7 @@ import backgroundImage from "./assets/images/pattern-bg-desktop.png"
       } 
   }, [])
 
-   async function handleInputChange(ip){
+  async function handleInputChange(ip){
 
     const validIp = validateIpAddress(ip);
 
@@ -51,7 +50,7 @@ import backgroundImage from "./assets/images/pattern-bg-desktop.png"
 
     
     if(!response.ok){
-      setError("Invalid IP address")
+      throw new Error ("Failed to fetch IP details")
     }
     const data = await response.json();
     setIpData(data)
@@ -61,7 +60,6 @@ import backgroundImage from "./assets/images/pattern-bg-desktop.png"
     e.preventDefault();
     handleInputChange(ipAddress)
      setIpAddress("")
-     setError("")
   }
 
 
@@ -84,18 +82,17 @@ import backgroundImage from "./assets/images/pattern-bg-desktop.png"
               id="ipaddress"
               value={ipAddress}
               onChange={(e) => setIpAddress(e.target.value)}
-              placeholder= {error ? "" : "Search for any IP address or domain"}
+              placeholder="Search for any IP address or domain" required
               className="py-2 px-4 rounded-l-lg bg-amber-50 w-full"
             />
             <button type="submit" className="bg-black py-4 px-4 hover:opacity-60 rounded-r-lg">
               <img src={arrowIcon} alt="arrow icon" />
             </button>
-            {error && <p className="text-red-600 absolute left-6 text-lg top-0 peer-invalid:block hidden">{error}</p>}
           </form>
    
         </article>
 
-         {ipData && !error && (
+         {ipData && (
           <>
             <article className="bg-white rounded-lg p-8 shadow text-center mx-8 grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl xl:mx-auto md:text-left lg:text-left lg:-mb-16 relative" style={{zIndex: 1000}}>
               <div className="lg:border-r lg:border-slate-400">
@@ -108,7 +105,7 @@ import backgroundImage from "./assets/images/pattern-bg-desktop.png"
               </div>
               <div className="lg:border-r lg:border-slate-400">
                 <h2 className="uppercase text-sm font-bold text-slate-500 tracking-wider mb-3">Timezone</h2>
-                <p className="text-slate-900 font-semibold text-lg md:text-xl xl:2xl">UTC {ipData.time_zone.offset}:00</p>
+                <p className="text-slate-900 font-semibold text-lg md:text-xl xl:2xl">UTC {ipData.time_zone.offset}:00 </p>
               </div>
               <div>
                 <h2 className="uppercase text-sm font-bold text-slate-500 tracking-wider mb-3">ISP</h2>
