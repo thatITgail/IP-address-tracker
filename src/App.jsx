@@ -30,7 +30,7 @@ import backgroundImage from "./assets/images/pattern-bg-desktop.png"
         const fetchIpData = async() => {
           const response = await fetch(ipApiUrl);
           const data = await response.json();
-
+          
           setIpData(data)
         }
         fetchIpData()
@@ -58,8 +58,9 @@ import backgroundImage from "./assets/images/pattern-bg-desktop.png"
     
   const handleSubmit = (e) => {
     e.preventDefault();
+
     handleInputChange(ipAddress)
-     setIpAddress("")
+    setIpAddress("")
   }
 
 
@@ -83,7 +84,7 @@ import backgroundImage from "./assets/images/pattern-bg-desktop.png"
               value={ipAddress}
               onChange={(e) => setIpAddress(e.target.value)}
               placeholder="Search for any IP address or domain" required
-              className="py-2 px-4 rounded-l-lg bg-amber-50 w-full"
+              className="py-2 px-4 rounded-l-lg bg-amber-50 focus:outline-none w-full"
             />
             <button type="submit" className="bg-black py-4 px-4 hover:opacity-60 rounded-r-lg">
               <img src={arrowIcon} alt="arrow icon" />
@@ -105,7 +106,7 @@ import backgroundImage from "./assets/images/pattern-bg-desktop.png"
               </div>
               <div className="lg:border-r lg:border-slate-400">
                 <h2 className="uppercase text-sm font-bold text-slate-500 tracking-wider mb-3">Timezone</h2>
-                <p className="text-slate-900 font-semibold text-lg md:text-xl xl:2xl">UTC {ipData.time_zone.offset}:00</p>
+                <p className="text-slate-900 font-semibold text-lg md:text-xl xl:2xl">UTC {ipData.time_zone.name}</p>
               </div>
               <div>
                 <h2 className="uppercase text-sm font-bold text-slate-500 tracking-wider mb-3">ISP</h2>
