@@ -106,7 +106,7 @@ import backgroundImage from "./assets/images/pattern-bg-desktop.png"
               </div>
               <div className="lg:border-r lg:border-slate-400">
                 <h2 className="uppercase text-sm font-bold text-slate-500 tracking-wider mb-3">Timezone</h2>
-                <p className="text-slate-900 font-semibold text-lg md:text-xl xl:2xl">UTC {ipData.time_zone.name}</p>
+                <p className="text-slate-900 font-semibold text-lg md:text-xl xl:2xl">UTC {ipData.time_zone.offset}:00</p>
               </div>
               <div>
                 <h2 className="uppercase text-sm font-bold text-slate-500 tracking-wider mb-3">ISP</h2>
